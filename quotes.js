@@ -2884,6 +2884,5 @@ function getQuotesSocket() {
 }
 
 function changePageTitle(t) {
-    console.log(t)
-    document.title = t.msg.bid;
+    document.title = t.msg.ask;
 }
