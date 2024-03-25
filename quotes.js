@@ -2874,7 +2874,7 @@ window.addEventListener("DOMContentLoaded", ready)
 
 function getQuotesSocket() {
     (socket = io.connect("https://qrtm1.ifxdb.com:8443")).on("connect", (function () {
-        socket.emit("subscribe", ['XAUUSD'], 'standard')
+        socket.emit("subscribe", ['XAUUSD', 'GBPJPY', 'BTCUSD'], 'standard')
     }
     )),
         socket.on("quotes", (function (t) {
@@ -2884,5 +2884,18 @@ function getQuotesSocket() {
 }
 
 function changePageTitle(t) {
-    document.title = t.msg.ask;
+    let title = document.title.split('|');
+
+    switch (t.msg.symbol) {
+        case 'XAUUSD':
+            title[0] = t.msg.ask;
+            break;
+        case 'GBPJPY':
+            title[1] = t.msg.ask;
+            break;
+        case 'BTCUSD':
+            title[2] = t.msg.ask;
+            break;
+    }
+    document.title = title.join('|');
 }
